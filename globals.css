@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  background: #050507;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+input, textarea {
+  font-family: inherit;
+  -webkit-appearance: none;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #555566;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 0; background: transparent; }
+
+/* Recording pulse */
+@keyframes rec-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.rec-pulse {
+  animation: rec-pulse 1s ease-in-out infinite;
+}
