@@ -8,30 +8,26 @@ const REQUIRED_VARS = [
 export default function ConfigNotice({ error }) {
   return (
     <main className="min-h-screen bg-bg px-5 py-8 text-t1">
-      <div className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-md items-center">
-        <section className="w-full border border-line bg-surface p-6" style={{ borderRadius: 0 }}>
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-accent">
-            Elena Care
-          </p>
-          <h1 className="mt-3 text-3xl font-semibold leading-tight">
-            Supabase needs to be configured before the app can connect.
-          </h1>
-          <p className="mt-3 text-base leading-7 text-t2">
-            {error || "Add the required public Supabase environment variables and restart the app."}
-          </p>
+      <div className="mx-auto max-w-md pt-16">
+        <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-accent mb-4">Elena Care</p>
+        <h1 className="text-[28px] font-light leading-tight mb-4" style={{ letterSpacing: "-0.02em" }}>
+          Supabase needs to be configured before the app can connect.
+        </h1>
+        <p className="text-[15px] text-t2 mb-8" style={{ lineHeight: "1.5" }}>
+          {error || "Add the required public Supabase environment variables and restart the app."}
+        </p>
 
-          <div className="mt-6 space-y-2 border border-line p-4" style={{ borderRadius: 0 }}>
-            {REQUIRED_VARS.map((envVar) => (
-              <div key={envVar} className="border border-line px-3 py-3 font-mono text-sm text-t1" style={{ borderRadius: 0 }}>
-                {envVar}
-              </div>
-            ))}
-          </div>
+        <div className="border-t border-black/8">
+          {REQUIRED_VARS.map((envVar) => (
+            <div key={envVar} className="py-4 border-b border-black/8 font-mono text-[13px] text-t2">
+              {envVar}
+            </div>
+          ))}
+        </div>
 
-          <p className="mt-5 text-sm leading-6 text-t3">
-            Create <span className="font-mono text-t2">.env.local</span> from the example file, add your Supabase URL and anon key, then restart the dev server.
-          </p>
-        </section>
+        <p className="text-[13px] text-t3 mt-6" style={{ lineHeight: "1.6" }}>
+          Create <span className="font-mono text-t2">.env.local</span> from the example file, add your Supabase URL and anon key, then restart the dev server.
+        </p>
       </div>
     </main>
   );

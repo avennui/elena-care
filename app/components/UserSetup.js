@@ -8,48 +8,49 @@ export default function UserSetup({ onSet }) {
   const [custom, setCustom] = useState("");
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen px-8 bg-bg">
-      <div className="w-full max-w-sm">
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl text-t1" style={{ fontWeight: 300, letterSpacing: "-0.02em", lineHeight: "1.15" }}>Elena Valdez</h1>
-          <div className="mt-3 w-8 h-px bg-line mx-auto" />
-          <p className="mt-4 text-sm text-t3">Care Coordination</p>
-        </div>
+    <div className="flex flex-col h-screen bg-bg">
+      {/* Top spacer — name appears ~40% down */}
+      <div style={{ height: "38vh" }} />
 
-        <p className="text-xs text-t3 uppercase mb-4 text-center" style={{ letterSpacing: "0.08em" }}>Who are you?</p>
+      <div className="px-5">
+        <h1 className="text-[48px] font-light text-t1 uppercase leading-none" style={{ letterSpacing: "-0.04em" }}>
+          ELENA<br />VALDEZ
+        </h1>
+        <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-t3 mt-4">Care Coordination</p>
+        <div className="w-8 h-px bg-black/8 mx-auto mt-6" />
+      </div>
 
-        <div className="grid grid-cols-2 gap-2">
+      <div className="px-5 mt-12">
+        <p className="text-[11px] tracking-[0.1em] uppercase text-t3 mb-6">Who are you?</p>
+
+        <div className="flex flex-col gap-0">
           {FAMILY.map((name) => (
             <button
               key={name}
               onClick={() => onSet(name)}
-              className={`py-3.5 px-4 text-sm transition-all duration-150 ${
+              className={`w-full text-left px-4 py-3.5 text-[11px] font-semibold tracking-[0.1em] uppercase border-b border-black/8 transition-colors ${
                 name === "Elena"
-                  ? "bg-t1 text-white col-span-2"
-                  : "bg-surface border border-line text-t1 hover:border-t1"
+                  ? "bg-t1 text-bg border-t1"
+                  : "bg-bg text-t1 hover:text-accent"
               }`}
-              style={{ fontWeight: name === "Elena" ? 600 : 400, borderRadius: "2px" }}
-            >
-              {name === "Elena" ? "I'm Elena" : name}
+              style={{ borderRadius: 0 }}>
+              {name === "Elena" ? "I'M ELENA" : name}
             </button>
           ))}
         </div>
 
-        <div className="mt-3 flex gap-2 items-end">
+        <div className="flex gap-4 items-end mt-8">
           <input
             type="text"
             value={custom}
             onChange={(e) => setCustom(e.target.value)}
-            placeholder="Other name"
-            className="flex-1 bg-transparent border-0 border-b border-line px-0 py-2 text-sm text-t1 focus:outline-none focus:border-t1 placeholder:text-t3 transition-colors duration-150"
-            style={{ borderRadius: 0 }}
             onKeyDown={(e) => e.key === "Enter" && custom.trim() && onSet(custom.trim())}
-          />
+            placeholder="Other name"
+            className="flex-1 bg-transparent border-0 border-b border-black/8 px-0 py-2 text-[16px] text-t1 focus:outline-none focus:border-t1 placeholder:text-t3 transition-colors duration-150"
+            style={{ borderRadius: 0 }} />
           <button
             onClick={() => custom.trim() && onSet(custom.trim())}
-            className="px-3 py-1.5 bg-t1 text-white text-sm"
-            style={{ fontWeight: 600, borderRadius: "2px" }}
-          >
+            className="text-[11px] font-semibold tracking-[0.1em] uppercase text-accent pb-2 border-b border-accent">
             Go
           </button>
         </div>

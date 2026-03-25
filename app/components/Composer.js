@@ -63,45 +63,47 @@ export default function Composer({ user, onSend }) {
     e.target.value = "";
   }, [onSend]);
 
-  const iconBtn = "w-8 h-8 flex items-center justify-center transition-colors";
-
   return (
-    <div className="border-t border-line bg-surface px-4 py-3 safe-bottom">
+    <div className="border-t border-black/8 bg-bg px-5 py-3 safe-bottom">
       <input ref={fileRef} type="file" accept="image/*,.pdf,.doc,.docx" className="hidden" onChange={handleFile} />
       <input ref={cameraRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handleCamera} />
 
-      <div className="flex items-end gap-2">
-        <div className="flex gap-0.5 pb-1">
-          <button onClick={() => cameraRef.current?.click()} className={`${iconBtn} text-t3 hover:text-t1`} title="Camera">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+      <div className="flex items-end gap-3">
+        <div className="flex gap-3 pb-2">
+          <button onClick={() => cameraRef.current?.click()} className="text-t3 hover:text-t1 transition-colors" title="Camera">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
               <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>
             </svg>
           </button>
-          <button onClick={() => fileRef.current?.click()} className={`${iconBtn} text-t3 hover:text-t1`} title="File">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+          <button onClick={() => fileRef.current?.click()} className="text-t3 hover:text-t1 transition-colors" title="File">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
             </svg>
           </button>
           <button onClick={recording ? stopRecording : startRecording}
-            className={`${iconBtn} ${recording ? "text-danger rec-pulse" : "text-t3 hover:text-t1"}`} title="Voice">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+            className={`transition-colors ${recording ? "text-danger rec-pulse" : "text-t3 hover:text-t1"}`} title="Voice">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
               <path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
             </svg>
           </button>
         </div>
 
-        <div className="flex-1 flex items-end gap-2">
-          <input type="text" value={text} onChange={(e) => setText(e.target.value)}
+        <div className="flex-1 flex items-end gap-3">
+          <input
+            type="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSendText()}
             placeholder={recording ? "Recording…" : "Update…"}
             disabled={recording || sending}
-            className="flex-1 bg-transparent border-0 border-b border-line px-0 py-2 text-sm text-t1 focus:outline-none focus:border-t1 placeholder:text-t3 disabled:opacity-50 transition-colors duration-150"
+            className="flex-1 bg-transparent border-0 border-b border-black/8 px-0 py-2 text-[16px] text-t1 focus:outline-none focus:border-t1 placeholder:text-t3 disabled:opacity-50 transition-colors duration-150"
             style={{ borderRadius: 0 }} />
-          <button onClick={handleSendText} disabled={!text.trim() || sending}
-            className="px-3 py-1.5 bg-t1 text-white text-sm disabled:opacity-20 transition-opacity"
-            style={{ fontWeight: 600, borderRadius: "2px" }}>
-            →
+          <button
+            onClick={handleSendText}
+            disabled={!text.trim() || sending}
+            className="text-[11px] font-semibold tracking-[0.1em] uppercase text-accent pb-2 border-b border-accent disabled:opacity-20 transition-opacity">
+            Send
           </button>
         </div>
       </div>

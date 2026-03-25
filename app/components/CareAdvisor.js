@@ -37,32 +37,21 @@ export default function CareAdvisor({ info }) {
       const response = await fetch("/api/care-advisor", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: apiMessages,
-          info,
-        }),
+        body: JSON.stringify({ messages: apiMessages, info }),
       });
 
       const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data?.error || "Sorry, I couldn't process that. Try again.");
-      }
+      if (!response.ok) throw new Error(data?.error || "Sorry, I couldn't process that. Try again.");
 
       setMessages((prev) => [
         ...prev,
-        {
-          role: "assistant",
-          content: data.content || "Sorry, I couldn't process that. Try again.",
-        },
+        { role: "assistant", content: data.content || "Sorry, I couldn't process that. Try again." },
       ]);
     } catch (error) {
       console.error("Care Advisor error:", error);
       setMessages((prev) => [
         ...prev,
-        {
-          role: "assistant",
-          content: error.message || "Something went wrong. Check your connection and try again.",
-        },
+        { role: "assistant", content: error.message || "Something went wrong. Check your connection and try again." },
       ]);
     }
 
@@ -80,37 +69,35 @@ export default function CareAdvisor({ info }) {
 
   return (
     <div className="flex h-full flex-col">
+      <div className="px-5 py-4 border-b border-black/8">
+        <h2 className="text-[11px] font-semibold tracking-[0.12em] uppercase text-t1">Care Advisor</h2>
+      </div>
+
       <div className="flex-1 overflow-y-auto px-5 py-4">
         {messages.map((message, index) => (
-          <div key={index} className={`mb-4 ${message.role === "user" ? "flex justify-end" : ""}`}>
+          <div key={index} className={`mb-8 ${message.role === "user" ? "flex justify-end" : ""}`}>
             {message.role === "assistant" && (
-              <div className="mb-1 flex items-start gap-2">
-                <span className="text-xs text-accent" style={{ fontWeight: 500 }}>Care Advisor</span>
-              </div>
+              <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-accent mb-2">Advisor</p>
             )}
             <div
-              className={`whitespace-pre-wrap text-sm ${
+              className={`text-[15px] whitespace-pre-wrap ${
                 message.role === "user"
-                  ? "inline-block max-w-[85%] bg-[#F0F4FF] px-4 py-3 text-t1"
-                  : "max-w-[95%] text-t2"
+                  ? "inline-block max-w-[85%] bg-accent/5 px-4 py-3 text-t1"
+                  : "text-t2"
               }`}
-              style={{ lineHeight: "1.6", borderRadius: message.role === "user" ? "2px" : 0 }}
-            >
+              style={{ lineHeight: "1.5", borderRadius: message.role === "user" ? "2px" : 0 }}>
               {message.content}
             </div>
           </div>
         ))}
 
         {loading && (
-          <div className="mb-4">
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-accent" style={{ fontWeight: 500 }}>Care Advisor</span>
-              <span className="text-xs text-t3">thinking…</span>
-            </div>
-            <div className="mt-2 flex gap-1 px-1">
-              <span className="h-1 w-1 animate-pulse rounded-full bg-t3" style={{ animationDelay: "0ms" }} />
-              <span className="h-1 w-1 animate-pulse rounded-full bg-t3" style={{ animationDelay: "150ms" }} />
-              <span className="h-1 w-1 animate-pulse rounded-full bg-t3" style={{ animationDelay: "300ms" }} />
+          <div className="mb-8">
+            <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-accent mb-2">Advisor</p>
+            <div className="flex gap-1.5">
+              <span className="h-1 w-1 animate-pulse bg-t3" style={{ animationDelay: "0ms", borderRadius: 0 }} />
+              <span className="h-1 w-1 animate-pulse bg-t3" style={{ animationDelay: "150ms", borderRadius: 0 }} />
+              <span className="h-1 w-1 animate-pulse bg-t3" style={{ animationDelay: "300ms", borderRadius: 0 }} />
             </div>
           </div>
         )}
@@ -119,15 +106,14 @@ export default function CareAdvisor({ info }) {
       </div>
 
       {messages.length <= 1 && (
-        <div className="px-5 pb-3">
+        <div className="px-5 pb-4">
           <div className="flex flex-wrap gap-2">
             {suggestions.map((question) => (
               <button
                 key={question}
                 onClick={() => { void send(question); }}
-                className="border border-line px-3 py-1.5 text-xs text-accent hover:border-accent transition-colors"
-                style={{ borderRadius: "2px", fontWeight: 500 }}
-              >
+                className="border border-black/8 px-3 py-1.5 text-[11px] font-semibold tracking-[0.06em] uppercase text-t2 hover:border-t1 hover:text-t1 transition-colors"
+                style={{ borderRadius: 0 }}>
                 {question}
               </button>
             ))}
@@ -135,26 +121,21 @@ export default function CareAdvisor({ info }) {
         </div>
       )}
 
-      <div className="safe-bottom border-t border-line bg-surface px-4 py-3">
-        <div className="flex gap-3 items-end">
+      <div className="border-t border-black/8 bg-bg px-5 py-3 safe-bottom">
+        <div className="flex gap-4 items-end">
           <input
             type="text"
             value={input}
-            onChange={(event) => setInput(event.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" && !event.shiftKey) { void send(); }
-            }}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { void send(); } }}
             placeholder="Ask about her care…"
             disabled={loading}
-            className="flex-1 bg-transparent border-0 border-b border-line px-0 py-2 text-sm text-t1 focus:outline-none focus:border-t1 placeholder:text-t3 transition-colors duration-150 disabled:opacity-50"
-            style={{ borderRadius: 0 }}
-          />
+            className="flex-1 bg-transparent border-0 border-b border-black/8 px-0 py-2 text-[16px] text-t1 focus:outline-none focus:border-t1 placeholder:text-t3 transition-colors duration-150 disabled:opacity-50"
+            style={{ borderRadius: 0 }} />
           <button
             onClick={() => { void send(); }}
             disabled={!input.trim() || loading}
-            className="px-3 py-1.5 bg-t1 text-white text-sm disabled:opacity-20 transition-opacity"
-            style={{ fontWeight: 600, borderRadius: "2px" }}
-          >
+            className="text-[11px] font-semibold tracking-[0.1em] uppercase text-accent pb-2 border-b border-accent disabled:opacity-20 transition-opacity">
             Ask
           </button>
         </div>

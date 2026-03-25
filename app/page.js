@@ -91,7 +91,7 @@ export default function Home() {
   }
 
   if (!user) return <UserSetup onSet={(name) => { localStorage.setItem("elena-care-user", name); setUser(name); }} />;
-  if (loading) return <div className="flex items-center justify-center h-screen text-t3 text-sm">Loading…</div>;
+  if (loading) return <div className="flex items-center justify-center h-screen text-[11px] tracking-[0.1em] uppercase text-t3">Loading…</div>;
 
   const isElena = user.toLowerCase() === "elena";
 

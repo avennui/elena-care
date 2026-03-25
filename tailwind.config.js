@@ -4,22 +4,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        bg: "#FAFAFA",
-        surface: "#FFFFFF",
-        line: "#E8E8E8",
-        accent: "#0047FF",
+        bg: "#FFFFFF",
         t1: "#000000",
-        t2: "#666666",
+        t2: "#444444",
         t3: "#999999",
-        danger: "#D63030",
+        accent: "#0000FF",
+        danger: "#FF0000",
       },
       animation: {
         fadeIn: "fadeIn 200ms ease-out",
-        slideUp: "slideUp 200ms ease-out",
       },
       keyframes: {
-        fadeIn: { "0%": { opacity: "0", transform: "translateY(4px)" }, "100%": { opacity: "1", transform: "translateY(0)" } },
-        slideUp: { "0%": { opacity: "0", transform: "translateY(4px)" }, "100%": { opacity: "1", transform: "translateY(0)" } },
+        fadeIn: { "0%": { opacity: "0" }, "100%": { opacity: "1" } },
       },
     },
   },

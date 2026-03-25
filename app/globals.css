@@ -5,9 +5,9 @@
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
 html, body {
-  background: #FAFAFA;
+  background: #FFFFFF;
   color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   overscroll-behavior: none;
 }
@@ -23,5 +23,4 @@ input::placeholder, textarea::placeholder { color: #999999; }
 }
 .rec-pulse { animation: rec-pulse 1.2s ease-in-out infinite; }
 
-/* Safe area for iOS */
 .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
