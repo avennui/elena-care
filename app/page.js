@@ -132,7 +132,7 @@ export default function Home() {
       <PhaseTracker phase={info?.phase} onUpdate={(phase) => handleUpdateInfo({ phase })} />
 
       {/* Coverage ping */}
-      <CoveragePing messages={messages} />
+      <CoveragePing messages={messages} patientName={info?.name} />
 
       {/* Main content */}
       <div className="flex-1 overflow-hidden">

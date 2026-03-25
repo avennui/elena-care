@@ -1,6 +1,6 @@
 # Elena Care — Family Coordination App
 
-Realtime care coordination for Elena Valdez's hip fracture recovery.
+Realtime family care coordination.
 
 No medical interpretation. Only who said what, when, exact words.
 
@@ -93,7 +93,7 @@ Patient details — hospital, nurse station, case manager (with one-tap call), i
 Manual only: Hospital → Surgery → Mobility → Discharge → Rehab. Tap to advance. No automation.
 
 ### Coverage Ping
-If no feed update in 2 hours, a banner appears: "No update in 2+ hours. Is someone with Elena?"
+If no feed update in 2 hours, a banner appears asking whether someone is with the patient.
 
 ---
 

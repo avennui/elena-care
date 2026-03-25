@@ -2,7 +2,7 @@ import "./globals.css";
 
 export const metadata = {
   title: "Elena Care",
-  description: "Care coordination for Elena Valdez",
+  description: "Family care coordination",
 };
 
 export const viewport = {

@@ -9,7 +9,7 @@ export default function UserSetup({ onSet }) {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen px-6">
-      <div className="text-t3 text-xs tracking-widest uppercase mb-2">Elena Valdez</div>
+      <div className="text-t3 text-xs tracking-widest uppercase mb-2">Family Care</div>
       <div className="text-t1 text-lg font-semibold mb-8">Who are you?</div>
 
       <div className="grid grid-cols-2 gap-3 w-full max-w-xs mb-6">

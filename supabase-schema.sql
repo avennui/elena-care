@@ -26,8 +26,8 @@ create table if not exists tasks (
 -- PATIENT INFO (single row, editable)
 create table if not exists patient_info (
   id int default 1 primary key check (id = 1),
-  name text default 'Elena Valdez',
-  dob text default 'August 11, 1951',
+  name text default '',
+  dob text default '',
   hospital text default '',
   nurse_station text default '',
   case_manager text default '',

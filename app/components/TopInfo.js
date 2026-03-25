@@ -2,9 +2,12 @@
 
 import { useState } from "react";
 
-const CALL_CONTEXT = "Calling about Elena Valdez, DOB August 11, 1951";
+function getCallContext(info) {
+  const details = [info?.name, info?.dob ? `DOB ${info.dob}` : null].filter(Boolean);
+  return details.length ? `Calling about ${details.join(", ")}` : "Calling about the patient";
+}
 
-function InfoRow({ label, value, field, onUpdate, phone }) {
+function InfoRow({ label, value, field, onUpdate, phone, title }) {
   const [editing, setEditing] = useState(false);
   const [val, setVal] = useState(value || "");
 
@@ -43,7 +46,7 @@ function InfoRow({ label, value, field, onUpdate, phone }) {
         <a
           href={`tel:${value}`}
           className="text-accent text-xs font-semibold px-2 py-1 border border-accent/30 rounded"
-          title={CALL_CONTEXT}
+          title={title}
         >
           Call
         </a>
@@ -55,6 +58,7 @@ function InfoRow({ label, value, field, onUpdate, phone }) {
 export default function TopInfo({ info, onUpdate, user, onHandoff }) {
   const [expanded, setExpanded] = useState(false);
   const [handoffTo, setHandoffTo] = useState("");
+  const callContext = getCallContext(info);
 
   if (!info) return null;
 
@@ -66,8 +70,8 @@ export default function TopInfo({ info, onUpdate, user, onHandoff }) {
         className="w-full px-4 py-3 flex items-center justify-between"
       >
         <div>
-          <div className="text-sm font-semibold text-t1">{info.name}</div>
-          <div className="text-xs text-t3">DOB: {info.dob}</div>
+          <div className="text-sm font-semibold text-t1">{info.name || "Patient name"}</div>
+          <div className="text-xs text-t3">{info.dob ? `DOB: ${info.dob}` : "DOB: tap to set"}</div>
         </div>
         <div className="flex items-center gap-3">
           {info.current_shift && (
@@ -82,10 +86,19 @@ export default function TopInfo({ info, onUpdate, user, onHandoff }) {
       {/* Expanded details */}
       {expanded && (
         <div className="px-4 pb-3 border-t border-line/50 pt-2">
+          <InfoRow label="Patient" value={info.name} field="name" onUpdate={onUpdate} />
+          <InfoRow label="DOB" value={info.dob} field="dob" onUpdate={onUpdate} />
           <InfoRow label="Hospital" value={info.hospital} field="hospital" onUpdate={onUpdate} />
           <InfoRow label="Nurse station" value={info.nurse_station} field="nurse_station" onUpdate={onUpdate} />
           <InfoRow label="Case manager" value={info.case_manager} field="case_manager" onUpdate={onUpdate} />
-          <InfoRow label="CM phone" value={info.case_manager_phone} field="case_manager_phone" onUpdate={onUpdate} phone />
+          <InfoRow
+            label="CM phone"
+            value={info.case_manager_phone}
+            field="case_manager_phone"
+            onUpdate={onUpdate}
+            phone
+            title={callContext}
+          />
           <InfoRow label="Insurance" value={info.insurance} field="insurance" onUpdate={onUpdate} />
 
           {/* Shift handoff */}

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 const TWO_HOURS = 2 * 60 * 60 * 1000;
 
-export default function CoveragePing({ messages }) {
+export default function CoveragePing({ messages, patientName }) {
   const [stale, setStale] = useState(false);
 
   useEffect(() => {
@@ -29,7 +29,9 @@ export default function CoveragePing({ messages }) {
       <div className="flex items-center gap-2">
         <span className="w-2 h-2 rounded-full bg-amber-500 rec-pulse flex-shrink-0" />
         <span className="text-xs text-amber-400 font-medium">
-          No update in 2+ hours. Is someone with Elena?
+          {patientName
+            ? `No update in 2+ hours. Is someone with ${patientName}?`
+            : "No update in 2+ hours. Is someone with the patient?"}
         </span>
       </div>
     </div>
