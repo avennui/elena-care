@@ -6,8 +6,7 @@ import {
   isSupabaseConfigured,
   getMessages, sendMessage, subscribeMessages,
   getTasks, addTask, completeTask, subscribeTasks,
-  getPatientInfo, updatePatientInfo,
-  uploadFile,
+  getPatientInfo, updatePatientInfo, uploadFile,
 } from "../lib/supabase";
 import ConfigNotice from "./components/ConfigNotice";
 import TopInfo from "./components/TopInfo";
@@ -18,6 +17,8 @@ import NavBar from "./components/NavBar";
 import Composer from "./components/Composer";
 import CoveragePing from "./components/CoveragePing";
 import UserSetup from "./components/UserSetup";
+import ElenaView from "./components/ElenaView";
+import CareAdvisor from "./components/CareAdvisor";
 
 export default function Home() {
   const supabaseReady = isSupabaseConfigured();
@@ -28,52 +29,31 @@ export default function Home() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Load user from localStorage
   useEffect(() => {
     const saved = localStorage.getItem("elena-care-user");
     if (saved) setUser(saved);
   }, []);
 
-  // Initial data load
   useEffect(() => {
     if (!user || !supabaseReady) { setLoading(false); return; }
     (async () => {
       try {
-        const [msgs, tks, inf] = await Promise.all([
-          getMessages(),
-          getTasks(),
-          getPatientInfo(),
-        ]);
+        const [msgs, tks, inf] = await Promise.all([getMessages(), getTasks(), getPatientInfo()]);
         setMessages(msgs || []);
         setTasks(tks || []);
         setInfo(inf);
-      } catch (e) {
-        console.error("Load error:", e);
-      }
+      } catch (e) { console.error("Load error:", e); }
       setLoading(false);
     })();
   }, [supabaseReady, user]);
 
-  // Realtime subscriptions
   useEffect(() => {
     if (!user || !supabaseReady) return;
-
-    const msgSub = subscribeMessages((newMsg) => {
-      setMessages((prev) => [...prev, newMsg]);
-    });
-
-    const taskSub = subscribeTasks(async () => {
-      const tks = await getTasks();
-      setTasks(tks || []);
-    });
-
-    return () => {
-      msgSub.unsubscribe();
-      taskSub.unsubscribe();
-    };
+    const msgSub = subscribeMessages((newMsg) => setMessages((prev) => [...prev, newMsg]));
+    const taskSub = subscribeTasks(async () => { const tks = await getTasks(); setTasks(tks || []); });
+    return () => { msgSub.unsubscribe(); taskSub.unsubscribe(); };
   }, [supabaseReady, user]);
 
-  // Handlers
   const handleSend = useCallback(async ({ type, content, file, transcript }) => {
     let file_url = null;
     if (file) {
@@ -87,14 +67,12 @@ export default function Home() {
   const handleAddTask = useCallback(async (text) => {
     if (tasks.length >= 5) return;
     await addTask({ text, owner: user });
-    const tks = await getTasks();
-    setTasks(tks || []);
+    const tks = await getTasks(); setTasks(tks || []);
   }, [user, tasks]);
 
   const handleCompleteTask = useCallback(async (id) => {
     await completeTask(id);
-    const tks = await getTasks();
-    setTasks(tks || []);
+    const tks = await getTasks(); setTasks(tks || []);
   }, []);
 
   const handleUpdateInfo = useCallback(async (fields) => {
@@ -103,11 +81,7 @@ export default function Home() {
   }, []);
 
   const handleHandoff = useCallback(async (toUser) => {
-    await sendMessage({
-      type: "handoff",
-      content: `${user} → ${toUser}`,
-      sender: user,
-    });
+    await sendMessage({ type: "handoff", content: `${user} → ${toUser}`, sender: user });
     await updatePatientInfo({ current_shift: toUser });
     setInfo((prev) => ({ ...prev, current_shift: toUser }));
   }, [user]);
@@ -116,25 +90,17 @@ export default function Home() {
     return <ConfigNotice error={getSupabaseConfigError()} />;
   }
 
-  // User setup
-  if (!user) {
-    return <UserSetup onSet={(name) => { localStorage.setItem("elena-care-user", name); setUser(name); }} />;
-  }
+  if (!user) return <UserSetup onSet={(name) => { localStorage.setItem("elena-care-user", name); setUser(name); }} />;
+  if (loading) return <div className="flex items-center justify-center h-screen text-t3 text-sm font-body">Loading...</div>;
 
-  if (loading) {
-    return <div className="flex items-center justify-center h-screen text-t3 text-sm">Loading...</div>;
-  }
+  const isElena = user.toLowerCase() === "elena";
 
   return (
-    <div className="flex flex-col h-screen max-h-screen overflow-hidden">
-      {/* Top info + phase */}
+    <div className="flex flex-col h-screen max-h-screen overflow-hidden bg-bg">
       <TopInfo info={info} onUpdate={handleUpdateInfo} user={user} onHandoff={handleHandoff} />
-      <PhaseTracker phase={info?.phase} onUpdate={(phase) => handleUpdateInfo({ phase })} />
+      <PhaseTracker phase={info?.phase} onUpdate={(phase) => handleUpdateInfo({ phase })} isElena={isElena} />
+      <CoveragePing messages={messages} />
 
-      {/* Coverage ping */}
-      <CoveragePing messages={messages} patientName={info?.name} />
-
-      {/* Main content */}
       <div className="flex-1 overflow-hidden">
         {tab === "feed" && (
           <div className="flex flex-col h-full">
@@ -142,18 +108,12 @@ export default function Home() {
             <Composer user={user} onSend={handleSend} />
           </div>
         )}
-        {tab === "tasks" && (
-          <Tasks
-            tasks={tasks}
-            user={user}
-            onAdd={handleAddTask}
-            onComplete={handleCompleteTask}
-          />
-        )}
+        {tab === "tasks" && <Tasks tasks={tasks} user={user} onAdd={handleAddTask} onComplete={handleCompleteTask} />}
+        {tab === "recovery" && <ElenaView messages={messages} />}
+        {tab === "advisor" && <CareAdvisor info={info} />}
       </div>
 
-      {/* Nav */}
-      <NavBar tab={tab} onTab={setTab} />
+      <NavBar tab={tab} onTab={setTab} isElena={isElena} />
     </div>
   );
 }

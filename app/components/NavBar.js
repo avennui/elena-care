@@ -1,26 +1,30 @@
 "use client";
 
-export default function NavBar({ tab, onTab }) {
+export default function NavBar({ tab, onTab, isElena }) {
+  const tabs = isElena
+    ? [
+        { id: "feed", label: "Updates" },
+        { id: "recovery", label: "My Recovery" },
+        { id: "advisor", label: "Ask" },
+      ]
+    : [
+        { id: "feed", label: "Feed" },
+        { id: "tasks", label: "Tasks" },
+        { id: "advisor", label: "Care Advisor" },
+      ];
+
   return (
-    <div className="border-t border-line bg-bg px-4 py-2 flex items-center justify-center gap-8">
-      <button
-        onClick={() => onTab("feed")}
-        className={`flex items-center gap-2 py-2 px-3 text-sm font-medium transition-colors ${
-          tab === "feed" ? "text-accent" : "text-t3 hover:text-t2"
-        }`}
-      >
-        <span className={`w-2 h-2 rounded-full ${tab === "feed" ? "bg-accent" : "bg-t3/40"}`} />
-        Feed
-      </button>
-      <button
-        onClick={() => onTab("tasks")}
-        className={`flex items-center gap-2 py-2 px-3 text-sm font-medium transition-colors ${
-          tab === "tasks" ? "text-accent" : "text-t3 hover:text-t2"
-        }`}
-      >
-        <span className={`w-2 h-2 rounded-full ${tab === "tasks" ? "bg-accent" : "bg-t3/40"}`} />
-        Tasks
-      </button>
+    <div className="border-t border-line bg-surface px-6 py-2.5 flex items-center justify-center gap-10 safe-bottom">
+      {tabs.map((t) => (
+        <button key={t.id} onClick={() => onTab(t.id)}
+          className={`flex items-center gap-2 py-2 text-sm transition-colors ${
+            tab === t.id ? "text-accent" : "text-t3 hover:text-t2"
+          }`}
+          style={{ fontWeight: tab === t.id ? 500 : 400 }}>
+          <span className={`w-1 h-1 rounded-full transition-colors flex-shrink-0 ${tab === t.id ? "bg-accent" : "bg-line"}`} />
+          {t.label}
+        </button>
+      ))}
     </div>
   );
 }

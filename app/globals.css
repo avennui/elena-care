@@ -2,38 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  -webkit-tap-highlight-color: transparent;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
 html, body {
-  background: #050507;
-  color: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif;
+  background: #FAFAFA;
+  color: #000000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   overscroll-behavior: none;
 }
 
-input, textarea {
-  font-family: inherit;
-  -webkit-appearance: none;
-}
+input, textarea, select, button { font-family: inherit; }
+input::placeholder, textarea::placeholder { color: #999999; }
 
-input::placeholder, textarea::placeholder {
-  color: #555566;
-}
-
-/* Scrollbar */
 ::-webkit-scrollbar { width: 0; background: transparent; }
 
-/* Recording pulse */
 @keyframes rec-pulse {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+  50% { opacity: 0.3; }
 }
-.rec-pulse {
-  animation: rec-pulse 1s ease-in-out infinite;
-}
+.rec-pulse { animation: rec-pulse 1.2s ease-in-out infinite; }
+
+/* Safe area for iOS */
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
