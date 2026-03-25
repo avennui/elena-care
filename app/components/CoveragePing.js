@@ -21,10 +21,10 @@ export default function CoveragePing({ messages }) {
   if (!stale) return null;
 
   return (
-    <div className="px-5 py-2.5 bg-amberLight border-b border-amber/10">
+    <div className="px-5 py-2.5 border-b border-line">
       <div className="flex items-center gap-2">
-        <span className="w-2 h-2 rounded-full bg-amber rec-pulse flex-shrink-0" />
-        <span className="text-xs text-amber font-medium font-body">No update in 2+ hours. Is someone with Elena?</span>
+        <span className="w-1.5 h-1.5 rounded-full bg-danger rec-pulse flex-shrink-0" />
+        <span className="text-xs text-danger" style={{ fontWeight: 500 }}>No update in 2+ hours. Is someone with Elena?</span>
       </div>
     </div>
   );

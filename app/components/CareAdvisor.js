@@ -85,15 +85,16 @@ export default function CareAdvisor({ info }) {
           <div key={index} className={`mb-4 ${message.role === "user" ? "flex justify-end" : ""}`}>
             {message.role === "assistant" && (
               <div className="mb-1 flex items-start gap-2">
-                <span className="text-xs font-semibold text-accent font-body">Care Advisor</span>
+                <span className="text-xs text-accent" style={{ fontWeight: 500 }}>Care Advisor</span>
               </div>
             )}
             <div
-              className={`whitespace-pre-wrap text-sm leading-relaxed font-body ${
+              className={`whitespace-pre-wrap text-sm ${
                 message.role === "user"
-                  ? "inline-block max-w-[85%] rounded-2xl rounded-br-sm bg-accent/10 px-4 py-3 text-t1"
+                  ? "inline-block max-w-[85%] bg-[#F0F4FF] px-4 py-3 text-t1"
                   : "max-w-[95%] text-t2"
               }`}
+              style={{ lineHeight: "1.6", borderRadius: message.role === "user" ? "2px" : 0 }}
             >
               {message.content}
             </div>
@@ -103,13 +104,13 @@ export default function CareAdvisor({ info }) {
         {loading && (
           <div className="mb-4">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold text-accent font-body">Care Advisor</span>
-              <span className="text-xs text-t3 font-body">thinking...</span>
+              <span className="text-xs text-accent" style={{ fontWeight: 500 }}>Care Advisor</span>
+              <span className="text-xs text-t3">thinking…</span>
             </div>
             <div className="mt-2 flex gap-1 px-1">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent/40" style={{ animationDelay: "0ms" }} />
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent/40" style={{ animationDelay: "150ms" }} />
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent/40" style={{ animationDelay: "300ms" }} />
+              <span className="h-1 w-1 animate-pulse rounded-full bg-t3" style={{ animationDelay: "0ms" }} />
+              <span className="h-1 w-1 animate-pulse rounded-full bg-t3" style={{ animationDelay: "150ms" }} />
+              <span className="h-1 w-1 animate-pulse rounded-full bg-t3" style={{ animationDelay: "300ms" }} />
             </div>
           </div>
         )}
@@ -123,10 +124,9 @@ export default function CareAdvisor({ info }) {
             {suggestions.map((question) => (
               <button
                 key={question}
-                onClick={() => {
-                  void send(question);
-                }}
-                className="rounded-full border border-accent/15 bg-accent/8 px-3 py-1.5 text-xs text-accent font-body transition-colors hover:bg-accent/15"
+                onClick={() => { void send(question); }}
+                className="border border-line px-3 py-1.5 text-xs text-accent hover:border-accent transition-colors"
+                style={{ borderRadius: "2px", fontWeight: 500 }}
               >
                 {question}
               </button>
@@ -136,26 +136,24 @@ export default function CareAdvisor({ info }) {
       )}
 
       <div className="safe-bottom border-t border-line bg-surface px-4 py-3">
-        <div className="flex gap-2">
+        <div className="flex gap-3 items-end">
           <input
             type="text"
             value={input}
             onChange={(event) => setInput(event.target.value)}
             onKeyDown={(event) => {
-              if (event.key === "Enter" && !event.shiftKey) {
-                void send();
-              }
+              if (event.key === "Enter" && !event.shiftKey) { void send(); }
             }}
-            placeholder="Ask about her care..."
+            placeholder="Ask about her care…"
             disabled={loading}
-            className="flex-1 rounded-xl border border-line bg-dim px-4 py-2.5 text-sm text-t1 font-body transition-colors placeholder:text-t3 focus:border-accent focus:outline-none disabled:opacity-50"
+            className="flex-1 bg-transparent border-0 border-b border-line px-0 py-2 text-sm text-t1 focus:outline-none focus:border-t1 placeholder:text-t3 transition-colors duration-150 disabled:opacity-50"
+            style={{ borderRadius: 0 }}
           />
           <button
-            onClick={() => {
-              void send();
-            }}
+            onClick={() => { void send(); }}
             disabled={!input.trim() || loading}
-            className="rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white font-body transition-opacity disabled:opacity-20"
+            className="px-3 py-1.5 bg-t1 text-white text-sm disabled:opacity-20 transition-opacity"
+            style={{ fontWeight: 600, borderRadius: "2px" }}
           >
             Ask
           </button>

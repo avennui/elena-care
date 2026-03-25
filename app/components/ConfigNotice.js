@@ -9,7 +9,7 @@ export default function ConfigNotice({ error }) {
   return (
     <main className="min-h-screen bg-bg px-5 py-8 text-t1">
       <div className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-md items-center">
-        <section className="w-full rounded-3xl border border-line bg-surface p-6 shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
+        <section className="w-full border border-line bg-surface p-6" style={{ borderRadius: 0 }}>
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-accent">
             Elena Care
           </p>
@@ -20,9 +20,9 @@ export default function ConfigNotice({ error }) {
             {error || "Add the required public Supabase environment variables and restart the app."}
           </p>
 
-          <div className="mt-6 space-y-3 rounded-2xl border border-line bg-bg/70 p-4">
+          <div className="mt-6 space-y-2 border border-line p-4" style={{ borderRadius: 0 }}>
             {REQUIRED_VARS.map((envVar) => (
-              <div key={envVar} className="rounded-xl border border-line/80 bg-bg px-3 py-3 font-mono text-sm text-t1">
+              <div key={envVar} className="border border-line px-3 py-3 font-mono text-sm text-t1" style={{ borderRadius: 0 }}>
                 {envVar}
               </div>
             ))}
