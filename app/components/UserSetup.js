@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const FAMILY = ["Anthony", "Michelle", "David", "Maria"];
+const FAMILY = ["Catalina", "Raul", "MIchelle", "Anthony"];
 
 export default function UserSetup({ onSet }) {
   const [custom, setCustom] = useState("");
