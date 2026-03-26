@@ -37,13 +37,13 @@ function Message({ msg, isNew }) {
   }
 
   return (
-    <div className={`px-5 py-4 border-b border-black/8 ${isNew ? "animate-fadeIn" : ""}`}>
-      <div className="flex items-baseline justify-between mb-1.5">
+    <div className={`px-5 py-5 border-b border-black/8 ${isNew ? "animate-fadeIn" : ""}`}>
+      <div className="flex items-baseline justify-between mb-2">
         <span className="text-[11px] font-semibold tracking-[0.06em] uppercase text-t1">{msg.sender}</span>
         <span className="text-[11px] tracking-[0.06em] uppercase text-t3">{formatTime(msg.created_at)}</span>
       </div>
       {msg.content && (
-        <p className="text-[15px] text-t2 whitespace-pre-wrap" style={{ lineHeight: "1.5" }}>{msg.content}</p>
+        <p className="text-[15px] font-light text-t2 whitespace-pre-wrap" style={{ lineHeight: "1.6" }}>{msg.content}</p>
       )}
       {msg.type === "voice" && msg.file_url && (
         <div className="mt-3">
@@ -90,7 +90,7 @@ export default function Feed({ messages, user }) {
 
   return (
     <div className="flex-1 overflow-y-auto">
-      <div className="px-5 py-4 border-b border-black/8">
+      <div className="px-5 py-5 border-b border-black/8">
         <h2 className="text-[11px] font-semibold tracking-[0.12em] uppercase text-t1">Feed</h2>
       </div>
 

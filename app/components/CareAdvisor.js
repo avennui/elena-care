@@ -69,7 +69,7 @@ export default function CareAdvisor({ info }) {
 
   return (
     <div className="flex h-full flex-col">
-      <div className="px-5 py-4 border-b border-black/8">
+      <div className="px-5 py-5 border-b border-black/8">
         <h2 className="text-[11px] font-semibold tracking-[0.12em] uppercase text-t1">Care Advisor</h2>
       </div>
 
@@ -80,12 +80,12 @@ export default function CareAdvisor({ info }) {
               <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-accent mb-2">Advisor</p>
             )}
             <div
-              className={`text-[15px] whitespace-pre-wrap ${
+              className={`text-[15px] font-light whitespace-pre-wrap ${
                 message.role === "user"
                   ? "inline-block max-w-[85%] bg-accent/5 px-4 py-3 text-t1"
                   : "text-t2"
               }`}
-              style={{ lineHeight: "1.5", borderRadius: message.role === "user" ? "2px" : 0 }}>
+              style={{ lineHeight: "1.6", borderRadius: message.role === "user" ? "2px" : 0 }}>
               {message.content}
             </div>
           </div>

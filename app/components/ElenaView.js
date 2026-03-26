@@ -52,11 +52,11 @@ export default function ElenaView() {
 
   return (
     <div className="flex-1 overflow-y-auto">
-      <div className="px-5 py-4 border-b border-black/8">
+      <div className="px-5 py-5 border-b border-black/8">
         <h2 className="text-[11px] font-semibold tracking-[0.12em] uppercase text-t1">Your Recovery</h2>
       </div>
 
-      <div className="px-5 py-4 border-b border-black/8">
+      <div className="px-5 py-5 border-b border-black/8">
         <div className="h-0.5 w-full bg-black/8 mb-2">
           <div
             className="h-full bg-t1"
@@ -69,7 +69,7 @@ export default function ElenaView() {
         const done = checks[t.id];
         return (
           <button key={t.id} onClick={() => toggle(t.id)}
-            className="w-full flex items-start gap-4 px-5 py-4 border-b border-black/8 text-left hover:bg-black/[0.02] transition-colors">
+            className="w-full flex items-start gap-4 px-5 py-5 border-b border-black/8 text-left hover:bg-black/[0.02] transition-colors">
             <div
               className={`mt-0.5 w-3.5 h-3.5 border flex items-center justify-center flex-shrink-0 transition-all ${
                 done ? "bg-t1 border-t1" : "border-t1"
@@ -82,7 +82,7 @@ export default function ElenaView() {
               )}
             </div>
             <div className="flex-1">
-              <p className={`text-[15px] ${done ? "text-t3 line-through" : "text-t1"}`} style={{ lineHeight: "1.4" }}>
+              <p className={`text-[15px] font-light ${done ? "text-t3 line-through" : "text-t1"}`} style={{ lineHeight: "1.5" }}>
                 {t.label}
               </p>
               <p className="text-[11px] tracking-[0.06em] uppercase text-t3 mt-1">{t.sublabel}</p>
@@ -93,11 +93,11 @@ export default function ElenaView() {
 
       <div className="px-5 pt-12 pb-4 border-b border-black/8">
         <h3 className="text-[11px] font-semibold tracking-[0.12em] uppercase text-t1 mb-4">When to speak up</h3>
-        <p className="text-[15px] text-t1 mb-1" style={{ lineHeight: "1.5" }}>You are not being a bother.</p>
-        <p className="text-[15px] text-t2 mb-4" style={{ lineHeight: "1.5" }}>Press the call button if you notice:</p>
-        <div className="space-y-2">
+        <p className="text-[15px] font-light text-t1 mb-1" style={{ lineHeight: "1.5" }}>You are not being a bother.</p>
+        <p className="text-[15px] font-light text-t2 mb-5" style={{ lineHeight: "1.5" }}>Press the call button if you notice:</p>
+        <div className="space-y-3">
           {SPEAK_UP.map((item, i) => (
-            <p key={i} className="text-[15px] text-t2 flex items-baseline gap-2" style={{ lineHeight: "1.5" }}>
+            <p key={i} className="text-[15px] font-light text-t2 flex items-baseline gap-2" style={{ lineHeight: "1.5" }}>
               <span className="text-t3 flex-shrink-0">·</span>
               {item}
             </p>

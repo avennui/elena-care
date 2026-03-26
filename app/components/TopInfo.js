@@ -18,7 +18,7 @@ function InfoRow({ label, value, field, onUpdate, phone }) {
           className="flex-1 bg-transparent border-0 border-b border-t1 text-[16px] text-t1 py-0.5 focus:outline-none"
           style={{ borderRadius: 0 }} />
       ) : (
-        <span className="text-[15px] text-t2 flex-1 cursor-pointer hover:text-t1 transition-colors" onClick={() => setEditing(true)}>
+        <span className="text-[15px] font-light text-t2 flex-1 cursor-pointer hover:text-t1 transition-colors" onClick={() => setEditing(true)}>
           {value || <span className="text-t3">—</span>}
         </span>
       )}
@@ -36,11 +36,11 @@ export default function TopInfo({ info, onUpdate, user, onHandoff }) {
 
   return (
     <div className="bg-bg border-b border-black/8">
-      <button onClick={() => setExpanded(!expanded)} className="w-full px-5 pt-6 pb-4 text-left">
-        <h1 className="text-[48px] font-light text-t1 uppercase leading-none" style={{ letterSpacing: "-0.04em" }}>
+      <button onClick={() => setExpanded(!expanded)} className="w-full px-5 pt-8 pb-5 text-left">
+        <h1 className="font-light text-t1 uppercase leading-none" style={{ fontSize: "clamp(48px, 13.5vw, 72px)", letterSpacing: "-0.05em" }}>
           {info.name}
         </h1>
-        <p className="text-[11px] tracking-[0.08em] uppercase text-t3 mt-2">
+        <p className="text-[11px] tracking-[0.08em] uppercase text-t3 mt-3">
           {info.dob}
           {info.current_shift && (
             <span className="ml-4 text-accent">↳ {info.current_shift.toUpperCase()}</span>

@@ -10,17 +10,17 @@ export default function UserSetup({ onSet }) {
   return (
     <div className="flex flex-col h-screen bg-bg">
       {/* Top spacer — name appears ~40% down */}
-      <div style={{ height: "38vh" }} />
+      <div style={{ height: "36vh" }} />
 
       <div className="px-5">
-        <h1 className="text-[48px] font-light text-t1 uppercase leading-none" style={{ letterSpacing: "-0.04em" }}>
+        <h1 className="font-light text-t1 uppercase leading-none" style={{ fontSize: "clamp(56px, 15vw, 96px)", letterSpacing: "-0.05em" }}>
           ELENA<br />VALDEZ
         </h1>
-        <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-t3 mt-4">Care Coordination</p>
-        <div className="w-8 h-px bg-black/8 mx-auto mt-6" />
+        <p className="text-[11px] tracking-[0.12em] uppercase text-t3 mt-5">Care Coordination</p>
+        <div className="w-8 h-px bg-black/8 mx-auto mt-8" />
       </div>
 
-      <div className="px-5 mt-12">
+      <div className="px-5 mt-14">
         <p className="text-[11px] tracking-[0.1em] uppercase text-t3 mb-6">Who are you?</p>
 
         <div className="flex flex-col gap-0">

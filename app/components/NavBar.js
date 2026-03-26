@@ -17,8 +17,8 @@ export default function NavBar({ tab, onTab, isElena }) {
     <div className="border-t border-black/8 bg-bg safe-bottom flex items-center" style={{ height: "44px" }}>
       {tabs.map((t) => (
         <button key={t.id} onClick={() => onTab(t.id)}
-          className={`flex-1 h-full flex items-center justify-center text-[11px] font-semibold tracking-[0.1em] transition-colors ${
-            tab === t.id ? "text-accent" : "text-t3 hover:text-t2"
+          className={`flex-1 h-full flex items-center justify-center text-[12px] tracking-[0.08em] transition-colors ${
+            tab === t.id ? "text-accent font-medium" : "text-t3 font-light hover:text-t2"
           }`}>
           {t.label}
         </button>

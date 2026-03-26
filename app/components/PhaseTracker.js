@@ -13,9 +13,9 @@ export default function PhaseTracker({ phase, onUpdate, isElena }) {
   const activePhase = idx >= 0 ? PHASES[idx] : null;
 
   return (
-    <div className="px-5 py-4 border-b border-black/8 bg-bg">
+    <div className="px-5 py-5 border-b border-black/8 bg-bg">
       {activePhase && (
-        <p className="text-[28px] font-light uppercase leading-none mb-2" style={{ letterSpacing: "-0.02em" }}>
+        <p className="font-light uppercase leading-none mb-3" style={{ fontSize: "clamp(28px, 8vw, 44px)", letterSpacing: "-0.025em" }}>
           {activePhase.label}
         </p>
       )}
